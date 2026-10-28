@@ -25,9 +25,10 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
     lede: "A six-tent camp on the northern edge of the Kidepo buffalo range.",
     body: [
       "Sport hunting is legal in Uganda under the Wildlife Act 2019 and operates on quota in the Karamoja community wildlife areas next door. The licence provides for a hunting camp at Zulia, subject to Uganda Wildlife Authority wildlife-use rights, and we intend to appoint one outfitter to operate it.",
-      "The species are those of the greater Kidepo: Nile buffalo, Jackson's hartebeest, lesser kudu, eland, roan, oribi, bushbuck, warthog and plains game. Quotas will be set with UWA on the basis of our own census, and a share of trophy and daily fees will go to the neighbouring communities and to the conservation trust.",
+      "We are offering one outfitter exclusive rights over two blocks of about 310 km² in total: the Lolabo lowlands round the north of Mount Zulia and the Lotukei plateau in the south-east, with the main camp 42 km from the new Kidepo International Airport. The product is Nile buffalo and the Karamoja specials, Chanler's mountain reedbuck, dik-dik and klipspringer, with plains game, hunted on foot. Quotas will be set with UWA from our own aerial count, and a fixed share of hunting income goes to the neighbouring communities.",
     ],
     fit: "An established outfitter with a Ugandan or East African professional-hunter licence, a clean compliance record, and the patience to build a block from survey upwards.",
+    report: { label: "Outfitter prospectus: blocks and lease terms (PDF)", href: "/reports/Zulia_Hunting_Outfitter_Prospectus.pdf" },
   },
   {
     id: "funds",
