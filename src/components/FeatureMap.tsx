@@ -26,7 +26,7 @@ const LAYERS: { key: LayerKey; label: string; swatch: string; on: boolean }[] = 
   { key: "tracks", label: "Tracks and paths", swatch: "#b89060", on: true },
   { key: "peaks", label: "Peaks and ridges", swatch: "#f4efe6", on: true },
   { key: "settlements", label: "Settlements", swatch: "#e9e1d2", on: false },
-  { key: "access", label: "Airstrips and towns", swatch: "#ef8a3c", on: true },
+  { key: "access", label: "Airstrips and towns", swatch: "#ef8a3c", on: false },
   { key: "sites", label: "Indicative lodge sites", swatch: "#ef8a3c", on: false },
   { key: "outside", label: "Surroundings outside the reserve", swatch: "#8a6a4b", on: false },
 ];
@@ -46,7 +46,13 @@ export function FeatureMap({ className = "" }: { className?: string }) {
   }, []);
 
   const zuliaFeature = bounds?.features.find((f) => f.properties?.name?.startsWith("Zulia Central"));
-  const proj = useMemo(() => geoMercator().fitExtent([[40, 40], [W - 40, H - 40]], (zuliaFeature ?? { type: "Sphere" }) as never), [zuliaFeature]);
+  // Frame the reserve alone, or widen to take in the airstrips and towns when that layer is on
+  const proj = useMemo(() => {
+    if (!zuliaFeature) return geoMercator();
+    const fc: FeatureCollection = { type: "FeatureCollection", features: [zuliaFeature as Feature] };
+    if (on.access && layers) for (const p of layers.access) fc.features.push({ type: "Feature", properties: {}, geometry: { type: "Point", coordinates: p.c } });
+    return geoMercator().fitExtent([[40, 40], [W - 40, H - 70]], fc as never);
+  }, [zuliaFeature, on.access, layers]);
   const path = useMemo(() => geoPath(proj), [proj]);
   const line = (c: Pt[]) => path({ type: "LineString", coordinates: c }) ?? "";
   const xy = (c: Pt) => proj(c) as [number, number];
