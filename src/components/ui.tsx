@@ -34,7 +34,7 @@ export function PageHero({ title, lede, photo }: { title: string; lede: string; 
   return (
     <section className="relative overflow-hidden bg-sand">
       <div className="contours text-kopje opacity-30" />
-      <div className="relative mx-auto grid max-w-7xl gap-10 px-5 pb-16 pt-32 sm:px-8 lg:grid-cols-[1.1fr_1fr] lg:items-end lg:pt-40">
+      <div className="relative mx-auto grid max-w-7xl gap-10 px-5 pb-16 pt-32 sm:px-8 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:pt-40">
         <div>
           <h1 className="text-[clamp(2.6rem,6vw,5.2rem)]">{title}</h1>
           <p className="prose-measure mt-6 text-lg leading-relaxed text-ink/80">{lede}</p>

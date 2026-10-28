@@ -105,10 +105,20 @@ export default function Opportunities() {
         lede="Zulia is a platform, not a finished product. Each of the lines below is open, and none of them is fixed. If you see a better way to do one of them, that is the conversation we want to have."
         photo={photos.elephants}
       />
-      <nav aria-label="Opportunity tracks" className="border-b border-ink/10 bg-bone">
-        <ul className="mx-auto flex max-w-7xl gap-6 overflow-x-auto px-5 py-4 text-sm sm:px-8">
-          {tracks.map((t) => <li key={t.id}><a href={`#${t.id}`} className="whitespace-nowrap hover:underline">{t.title}</a></li>)}
-        </ul>
+      <nav aria-label="Opportunity tracks" className="sticky top-0 z-30 border-b border-ink/10 bg-bone/95 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-5 py-3 sm:px-8">
+          <span className="shrink-0 text-xs uppercase tracking-[0.18em] text-ink/50">Jump to</span>
+          <ul className="flex flex-wrap gap-2">
+            {tracks.map((t) => (
+              <li key={t.id}>
+                <a href={`#${t.id}`} className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-ink/20 px-3.5 py-1.5 text-sm text-ink/80 transition hover:border-dawn hover:bg-dawn/10 hover:text-ink">
+                  {t.title}
+                  <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden className="opacity-60"><path d="M5 1v8M1.5 5.5 5 9l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </nav>
       {tracks.map((t, i) => (
         <Section key={t.id} tone={i % 2 ? "sand" : "bone"}>
