@@ -90,8 +90,8 @@ export default function Home() {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4 lg:col-span-2">
-            <Photo photo={photos.lion} className="col-span-2 aspect-[16/9] overflow-hidden" sizes="(min-width:1024px) 60vw, 100vw" />
-            <Photo photo={photos.elephants} className="aspect-[4/3] overflow-hidden" sizes="30vw" />
+            <Photo photo={photos.buffaloBull} className="col-span-2 aspect-[16/9] overflow-hidden" sizes="(min-width:1024px) 60vw, 100vw" />
+            <Photo photo={photos.lionOwn} className="aspect-[4/3] overflow-hidden" sizes="30vw" />
             <Photo photo={photos.giraffe} className="aspect-[4/3] overflow-hidden" sizes="30vw" />
           </div>
         </div>

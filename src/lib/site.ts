@@ -57,6 +57,8 @@ export type Photo = {
   source?: string;
   w: number;
   h: number;
+  /** CSS object-position for cropped slots, e.g. "50% 25%". */
+  pos?: string;
 };
 
 const commons = (file: string, width = 1600) =>
@@ -70,6 +72,15 @@ export const photos = {
   inselberg: { src: "/media/aerial-inselberg.jpg", alt: "Aerial view of an inselberg rising from green savanna", w: 1920, h: 1440 } as Photo,
   plains: { src: "/media/aerial-plains.jpg", alt: "Aerial view of the Zulia plains after rain", w: 1920, h: 1440 } as Photo,
   river: { src: "/media/aerial-river.jpg", alt: "Aerial view of the Kidepo River in flood", w: 1920, h: 1080 } as Photo,
+  buffaloBull: { src: "/media/buffalo-bull.jpg", alt: "A buffalo bull looking up from the herd, horns against a stormy sky", w: 1280, h: 853 } as Photo,
+  buffaloResting: { src: "/media/buffalo-resting.jpg", alt: "A buffalo bull lying in long grass", w: 1280, h: 853 } as Photo,
+  lionOwn: { src: "/media/lion-track.jpg", alt: "A black-maned lion walking straight down a red earth track", w: 785, h: 1280, pos: "50% 28%" } as Photo,
+  eland: { src: "/media/eland-herd.jpg", alt: "Three eland moving through green grass under acacias", w: 1280, h: 853 } as Photo,
+  vulture: { src: "/media/vulture.jpg", alt: "A vulture perched on a dead branch", w: 1280, h: 903 } as Photo,
+  sunset: { src: "/media/acacia-sunset.jpg", alt: "A flat-topped acacia silhouetted against the sunset, hills on the horizon", w: 1280, h: 960 } as Photo,
+  camp: { src: "/media/riverbed-camp.jpg", alt: "Camp chairs and a table set out on a sandy riverbed under acacias", w: 1280, h: 960 } as Photo,
+  palms: { src: "/media/palm-riverbed-track.jpg", alt: "A rock riverbed running between borassus palms and riverine forest", w: 1280, h: 960 } as Photo,
+  escarpment: { src: "/media/track-escarpment.jpg", alt: "A two-wheel track across the grass towards a cloud-capped escarpment", w: 1280, h: 960 } as Photo,
 
   lion: { src: commons("Kidepo Lion (48663880907).jpg"), alt: "A male lion resting on a granite kopje in Kidepo", credit: "Rod Waddington", licence: "CC BY-SA 2.0", source: "https://commons.wikimedia.org/wiki/File:Kidepo_Lion_(48663880907).jpg", w: 1600, h: 1068 } as Photo,
   elephants: { src: commons("Elephants of Kidepo.jpg"), alt: "An elephant family under an acacia in Kidepo Valley", credit: "Vincent Mugaba", licence: "CC BY-SA 4.0", source: "https://commons.wikimedia.org/wiki/File:Elephants_of_Kidepo.jpg", w: 1600, h: 1067 } as Photo,

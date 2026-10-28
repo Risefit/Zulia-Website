@@ -9,7 +9,7 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
     id: "lodges",
     title: "Lodge and camp operators",
     report: { label: "Lodge sites: thirty places to wake up (PDF)", href: "/reports/Zulia_Lodge_Sites.pdf" },
-    photo: photos.pool,
+    photo: photos.sunset,
     lede: "Two sites, long leases, a landscape no one else can offer.",
     body: [
       "The licence provides for an exclusive 20-bed wilderness lodge and a 40-bed mid-range camp. We are not building them ourselves. We are looking for operators who will design, build and run them under long-term site leases with a conservation fee attached to every bed-night.",
@@ -21,7 +21,7 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
   {
     id: "hunting",
     title: "Hunting outfitters",
-    photo: photos.buffalo,
+    photo: photos.buffaloResting,
     lede: "A six-tent camp on the northern edge of the Kidepo buffalo range.",
     body: [
       "Sport hunting is legal in Uganda under the Wildlife Act 2019 and operates on quota in the Karamoja community wildlife areas next door. The licence provides for a hunting camp at Zulia, subject to Uganda Wildlife Authority wildlife-use rights, and we intend to appoint one outfitter to operate it.",
@@ -33,7 +33,7 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
   {
     id: "funds",
     title: "Conservation funds and foundations",
-    photo: photos.lion,
+    photo: photos.lionOwn,
     lede: "A thousand square kilometres of intact habitat, a fifty-year mandate, and a governance structure built for grant funding.",
     body: [
       "Protection in Zulia will cost more than tourism can pay for in the first decade; that is true of every remote landscape in Africa. The Zulia Conservation Trust is being formed to hold the ranger force, the fire and water programme, the monitoring and the community work, with the regulators and the communities on its board and audited accounts from the first year.",
@@ -44,7 +44,7 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
   {
     id: "ranching",
     title: "Wildlife and livestock partners",
-    photo: photos.hartebeest,
+    photo: photos.eland,
     lede: "Karamoja is cattle country. The plan works with that, not against it.",
     body: [
       "We do not intend to run a company herd. We intend to agree managed dry-season grazing with the Dodoth kraals on defined blocks of the reserve, tied to a grazing plan and a no-fire rule, and to pair that with a buying scheme that pays better prices for cattle from compliant kraals. Wildlife ranching and game-meat value chains may follow once populations recover and UWA licences allow.",
@@ -55,7 +55,7 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
   {
     id: "adventure",
     title: "Adventure tourism operators",
-    photo: photos.rangers,
+    photo: photos.camp,
     lede: "No roads. That is the point.",
     body: [
       "Walking safaris, hiking and trekking to the summit of Mount Zulia, horseback safaris along the river and mountain biking on the inselberg country, all from a shared low-impact base camp on the Kidepo River. Zulia is the one large protected area in Uganda where the whole experience can be built on foot and hoof from the start.",
@@ -66,7 +66,7 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
   {
     id: "birding",
     title: "Birding tour operators",
-    photo: photos.giraffe,
+    photo: photos.vulture,
     lede: "Where East African and Sahelian birds meet, and almost nobody has kept a list.",
     body: [
       "Kidepo Valley National Park records around 475 bird species, the second-highest total of any Ugandan park, with a run of dry-country specials found nowhere else in the country: ostrich, Kori bustard, secretarybird, Abyssinian ground hornbill, Jackson's hornbill, Clapperton's francolin, pygmy falcon, Egyptian vulture, Karamoja apalis and the Ethiopian–Somali species that reach their western limit here. Zulia is the same landscape with more altitude, more riverine forest and no records at all.",
@@ -78,7 +78,7 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
   {
     id: "botanical",
     title: "Botanical garden and indigenous plant conservation",
-    photo: photos.pool,
+    photo: photos.palms,
     lede: "A living collection of Karamoja's plants, in Karamoja.",
     body: [
       "The licence provides for a botanical garden, and the South African National Biodiversity Institute expressed interest in 2019 in helping to design a conservation garden in the reserve. The idea is a garden and seed bank for the dryland flora of north-eastern Uganda: the Combretum and Acacia woodland types, borassus and doum palm, shea (Vitellaria nilotica), frankincense (Boswellia), desert date (Balanites), the aloes, euphorbias and medicinal plants the Dodoth and Ik have used for generations, and the little-known montane flora of the Zulia hills.",
@@ -124,7 +124,7 @@ export default function Opportunities() {
       </nav>
       {tracks.map((t, i) => (
         <Section key={t.id} tone={i % 2 ? "sand" : "bone"}>
-          <article id={t.id} className="grid scroll-mt-24 gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+          <article id={t.id} className="grid scroll-mt-44 gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
             <Photo photo={t.photo} className={`aspect-[4/3] overflow-hidden ${i % 2 ? "lg:order-2" : ""}`} sizes="(min-width:1024px) 45vw, 100vw" />
             <div className={i % 2 ? "lg:order-1" : ""}>
               <h2 className="text-[clamp(1.9rem,3.5vw,3rem)]">{t.title}</h2>

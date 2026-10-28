@@ -15,6 +15,7 @@ export function Photo({ photo, className = "", sizes = "100vw", priority = false
         decoding="async"
         sizes={sizes}
         className="h-full w-full object-cover"
+        style={photo.pos ? { objectPosition: photo.pos } : undefined}
       />
       {(caption || credit) && (
         <figcaption className="caption mt-2 flex flex-wrap justify-between gap-x-4">

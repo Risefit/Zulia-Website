@@ -170,7 +170,7 @@ export default function Concession() {
             <p className="mt-2 leading-relaxed text-ink/80">Granite domes rise from the plain to the Zulia and Lomil hills; the summit of Mount Zulia at {facts.summitM} m is the high point of the whole Kidepo landscape.</p>
           </div>
           <div>
-            <Photo photo={photos.pool} className="aspect-[4/3] overflow-hidden" sizes="33vw" />
+            <Photo photo={photos.palms} className="aspect-[4/3] overflow-hidden" sizes="33vw" />
             <h3 className="mt-5 text-2xl">Rivers of sand and palms</h3>
             <p className="mt-2 leading-relaxed text-ink/80">The Kidepo River and its tributaries run for a few weeks a year and hold water in rock pools and sand through the dry season, lined with borassus palms.</p>
           </div>
