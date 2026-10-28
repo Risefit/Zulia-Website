@@ -8,6 +8,10 @@ const partners = [
   { name: "Uganda Wildlife Authority", short: "Uganda Wildlife Authority", href: "https://ugandawildlife.org/", logo: "/partners/uwa-light.png", h: "h-16" },
 ];
 
+const supporters = [
+  { name: "Kampala Executive Aviation", short: "Kampala Executive Aviation", href: "https://www.flykea.com", logo: "/partners/kea-light.png", h: "h-10" },
+];
+
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-granite text-bone on-dark">
@@ -48,6 +52,14 @@ export function Footer() {
               className="group inline-flex items-center gap-3 opacity-80 transition hover:opacity-100">
               <img src={p.logo} alt="" className={`${p.h} w-auto`} />
               <span className="text-sm text-bone/70 group-hover:text-bone">{p.short}</span>
+            </a>
+          ))}
+          <span aria-hidden className="hidden h-10 w-px bg-bone/15 sm:block" />
+          <p className="text-xs uppercase tracking-[0.18em] text-bone/50">Partners</p>
+          {supporters.map((p) => (
+            <a key={p.name} href={p.href} target="_blank" rel="noreferrer" title={p.name} aria-label={p.name}
+              className="group inline-flex items-center gap-3 opacity-80 transition hover:opacity-100">
+              <img src={p.logo} alt="" className={`${p.h} w-auto`} />
             </a>
           ))}
         </div>
