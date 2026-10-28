@@ -51,6 +51,7 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
       "Partners with experience of integrating livestock and wildlife on rangeland in East Africa, or of community livestock-to-market programmes, can shape this from the beginning.",
     ],
     fit: "Rangeland managers, livestock enterprises and conservancies with a working model of wildlife and cattle sharing ground.",
+    report: { label: "Wildlife ranches: breeding partners prospectus (PDF)", href: "/reports/Zulia_Breeding_Partners_Prospectus.pdf" },
   },
   {
     id: "breeding",
