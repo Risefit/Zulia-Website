@@ -63,7 +63,7 @@ export default function About() {
             <p className="display text-2xl">Vision</p>
             <p className="prose-measure mt-4 leading-relaxed text-ink/80">
               By 2040, Zulia and Kidepo function as one 2,500 km² landscape in which elephant, buffalo, giraffe and lion move freely across
-              the border hills, the Dodoth and Ik communities earn more from wildlife than from charcoal or raiding, and Uganda has a
+              the border hills, the Dodoth and Ik communities earn more from wildlife preservation than from charcoal or raiding, and Uganda has a
               model for how a private licensee can run a public reserve.
             </p>
           </div>
