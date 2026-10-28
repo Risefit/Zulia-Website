@@ -38,9 +38,13 @@ export default function Concession() {
       {/* Map panel */}
       <section className="relative overflow-hidden bg-granite text-bone on-dark">
         <div className="contours text-kopje opacity-40" />
-        <div className="relative mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[1fr_1fr] lg:items-center lg:py-24">
-          <div className="aspect-square w-full max-w-[640px] text-bone"><ZoomMap autoplay={false} staticStage="uganda" className="map-vignette h-full w-full" /></div>
-          <div>
+        <div className="relative mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[1fr_1fr] lg:items-start lg:gap-16 lg:py-24">
+          <div className="lg:sticky lg:top-24">
+            <div className="mx-auto aspect-square w-full max-w-[640px] text-bone">
+              <ZoomMap playOnView className="map-vignette-soft h-full w-full" />
+            </div>
+          </div>
+          <div className="lg:pt-10">
             <h2 className="text-[clamp(1.9rem,3.5vw,3rem)]">Where it is</h2>
             <p className="prose-measure mt-5 leading-relaxed text-bone/85">
               The extreme north-east of Uganda, 450 km from Entebbe by air and some 570 km by road. The Apoka airstrip in Kidepo Valley National
@@ -52,31 +56,29 @@ export default function Concession() {
               <Stat value="4°N 34°E" label="centre of the reserve" />
               <Stat value={facts.summitM + " m"} label="Mount Zulia summit" />
             </div>
-          </div>
-        </div>
-        <div className="relative mx-auto grid max-w-7xl gap-10 px-5 pb-20 sm:px-8 lg:grid-cols-[1fr_1fr] lg:items-center">
-          <div className="lg:order-2 aspect-square w-full max-w-[640px] text-bone lg:justify-self-end"><ZoomMap autoplay={false} staticStage="zulia" className="map-vignette h-full w-full" /></div>
-          <div className="lg:order-1">
-            <h2 className="text-[clamp(1.9rem,3.5vw,3rem)]">What the boundary means</h2>
-            <div className="prose-measure mt-5 leading-relaxed text-bone/85">
-              <p>
-                The reserve is a wedge: broad in the north-east around Mount Zulia and the Turkana escarpment, narrowing south-west along the
-                Kidepo River. Its northern edge is the South Sudan border and its eastern edge the Kenyan one. The lighter area is the
-                {" "}{facts.overlapKm2} km² that also lies inside Kidepo Valley National Park, where we work under both NFA and UWA.
-              </p>
-              <p>
-                The boundary shown is the National Forestry Authority's 2021 GIS boundary as published in the World Database on Protected Areas.
-                Zulia was never fully demarcated on the ground; a formal re-survey is one of the licence's first-year obligations.
-              </p>
+
+            <div className="mt-14 border-t border-bone/15 pt-12">
+              <h2 className="text-[clamp(1.9rem,3.5vw,3rem)]">What the boundary means</h2>
+              <div className="prose-measure mt-5 leading-relaxed text-bone/85">
+                <p>
+                  The reserve is a wedge: broad in the north-east around Mount Zulia and the Turkana escarpment, narrowing south-west along the
+                  Kidepo River. Its northern edge is the South Sudan border and its eastern edge the Kenyan one. The lighter area is the
+                  {" "}{facts.overlapKm2} km² that also lies inside Kidepo Valley National Park, where we work under both NFA and UWA.
+                </p>
+                <p>
+                  The boundary shown is the National Forestry Authority's 2021 GIS boundary as published in the World Database on Protected Areas.
+                  Zulia was never fully demarcated on the ground; a formal re-survey is one of the licence's first-year obligations.
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Layered map / satellite timeline */}
         <div className="relative mx-auto max-w-7xl px-5 pb-20 sm:px-8">
-          <h2 className="mb-6 text-[clamp(1.6rem,2.8vw,2.4rem)]">The reserve, two ways</h2>
+          <h2 className="mx-auto mb-6 text-[clamp(1.6rem,2.8vw,2.4rem)] lg:w-[min(80%,calc((100svh-16rem)*1.2))]">The reserve, two ways</h2>
           <MapTabs />
-          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-bone/60">
+          <p className="mx-auto mt-4 text-sm leading-relaxed text-bone/60 lg:w-[min(80%,calc((100svh-16rem)*1.2))]">
             Everything east of the boundary is thinly mapped: that is the honest picture of a reserve no one has worked in. The optional lodge-site layer shows
             twelve hilltop positions ranked by elevation, relief, horizon and distance to water; they are desk-based candidates for ground-truthing, not proposals.
           </p>

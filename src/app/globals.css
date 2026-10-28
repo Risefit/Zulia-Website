@@ -94,6 +94,12 @@ a { text-underline-offset: 0.18em; }
 .map-label { font-family: var(--font-sans); font-size: 11px; letter-spacing: .02em; fill: currentColor; }
 .map-label.serif { font-family: var(--font-display); font-size: 15px; letter-spacing: 0; }
 
+.zoommap .map-label { font-size: 26px; }
+.zoommap .map-label.serif { font-size: 34px; }
+@media (max-width: 640px) { .zoommap .map-label { font-size: 34px; } .zoommap .map-label.serif { font-size: 40px; } }
+
+.map-vignette-soft { -webkit-mask-image: radial-gradient(closest-side, #000 78%, transparent 100%); mask-image: radial-gradient(closest-side, #000 78%, transparent 100%); }
+
 /* soften the square edge of the map panel */
 .map-vignette { -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 74%); mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 74%); }
 

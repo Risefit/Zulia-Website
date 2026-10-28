@@ -11,7 +11,7 @@ import { easeCubicInOut } from "d3-ease";
 import type { FeatureCollection, Feature, Geometry } from "geojson";
 
 type Stage = "africa" | "uganda" | "zulia";
-type Props = { className?: string; autoplay?: boolean; onStage?: (s: Stage) => void; loop?: boolean; staticStage?: Stage; };
+type Props = { className?: string; autoplay?: boolean; onStage?: (s: Stage) => void; loop?: boolean; staticStage?: Stage; playOnView?: boolean };
 
 type Framing = { scale: number; translate: [number, number] };
 
@@ -20,7 +20,7 @@ function fit(proj: GeoProjection, feature: Feature | FeatureCollection, w: numbe
   return { scale: p.scale(), translate: p.translate() as [number, number] };
 }
 
-export function ZoomMap({ className = "", autoplay = true, onStage, loop = false, staticStage = "zulia" }: Props) {
+export function ZoomMap({ className = "", autoplay = true, onStage, loop = false, staticStage = "zulia", playOnView = false }: Props) {
   const ref = useRef<SVGSVGElement>(null);
   const [data, setData] = useState<{ africa: FeatureCollection; uganda: Feature; zulia: FeatureCollection } | null>(null);
   const [stage, setStage] = useState<Stage>("africa");
@@ -50,7 +50,7 @@ export function ZoomMap({ className = "", autoplay = true, onStage, loop = false
     const fU = fit(proj, data.uganda, W, H, 140);
     // Zulia framing: include the park so the overlap reads
     const both: FeatureCollection = { type: "FeatureCollection", features: [zuliaPoly, kidepo] };
-    const fZ = fit(proj, both, W, H, 70);
+    const fZ = fit(proj, both, W, H, 165);
 
     const g = {
       land: svg.querySelector<SVGGElement>("#land")!,
@@ -126,17 +126,17 @@ export function ZoomMap({ className = "", autoplay = true, onStage, loop = false
       // labels follow geometry
       const lz = svg.querySelector<SVGTextElement>("#lbl-zulia")!;
       const c = path.centroid(zuliaPoly as never);
-      lz.setAttribute("x", `${c[0]}`); lz.setAttribute("y", `${c[1] - 10}`);
+      lz.setAttribute("x", `${c[0]}`); lz.setAttribute("y", `${c[1] - 14}`);
       const lk = svg.querySelector<SVGTextElement>("#lbl-kidepo")!;
       const ck = path.centroid(kidepo as never);
       lk.setAttribute("x", `${ck[0] - 30}`); lk.setAttribute("y", `${ck[1] + 40}`);
       const ls = svg.querySelector<SVGTextElement>("#lbl-summit")!;
-      ls.setAttribute("x", `${sp[0] + 14}`); ls.setAttribute("y", `${sp[1] + 4}`);
+      ls.setAttribute("x", `${sp[0] - 16}`); ls.setAttribute("y", `${sp[1] + 7}`);
       const la = svg.querySelector<SVGTextElement>("#lbl-airstrip")!;
-      la.setAttribute("x", `${ap[0] + 12}`); la.setAttribute("y", `${ap[1] + 4}`);
+      la.setAttribute("x", `${ap[0] + 16}`); la.setAttribute("y", `${ap[1] + 7}`);
       const lss = svg.querySelector<SVGTextElement>("#lbl-ssudan")!;
       const lke = svg.querySelector<SVGTextElement>("#lbl-kenya")!;
-      const pSS = proj([33.80, 4.19])!, pKE = proj([34.17, 3.99])!;
+      const pSS = proj([33.80, 4.19])!, pKE = proj([34.16, 3.86])!;
       lss.setAttribute("x", `${pSS[0]}`); lss.setAttribute("y", `${pSS[1]}`);
       lke.setAttribute("x", `${pKE[0]}`); lke.setAttribute("y", `${pKE[1]}`);
 
@@ -160,6 +160,7 @@ export function ZoomMap({ className = "", autoplay = true, onStage, loop = false
       { from: 1, to: 2, dur: 2600 },
     ];
     let raf = 0, start = performance.now(), seg = 0;
+    let io: IntersectionObserver | null = null;
     const tick = (now: number) => {
       const s = segs[seg];
       const k = Math.min(1, (now - start) / s.dur);
@@ -174,12 +175,24 @@ export function ZoomMap({ className = "", autoplay = true, onStage, loop = false
       }
       raf = requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [data, autoplay, loop, onStage, staticStage]);
+    if (playOnView) {
+      // hold on Africa until the map is properly on screen, then play once
+      io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          io?.disconnect();
+          start = performance.now();
+          raf = requestAnimationFrame(tick);
+        }
+      }, { threshold: 0.45 });
+      io.observe(svg);
+    } else {
+      raf = requestAnimationFrame(tick);
+    }
+    return () => { cancelAnimationFrame(raf); io?.disconnect(); };
+  }, [data, autoplay, loop, onStage, staticStage, playOnView]);
 
   return (
-    <svg ref={ref} viewBox="0 0 1000 1000" className={className} role="img"
+    <svg ref={ref} viewBox="0 0 1000 1000" className={`zoommap ${className}`} role="img"
       aria-label="Animated map zooming from Africa to Uganda to the Zulia Central Forest Reserve on the South Sudan and Kenya borders">
       <g id="land" fill="rgba(244,239,230,0.08)" stroke="currentColor" strokeOpacity="0.55" strokeLinejoin="round" />
       <g id="borders" />
@@ -190,7 +203,7 @@ export function ZoomMap({ className = "", autoplay = true, onStage, loop = false
       <g id="locator" style={{ opacity: 0, transition: "opacity .4s" }}>
         <circle r="26" fill="none" stroke="#ef8a3c" strokeOpacity="0.6" />
         <circle r="7" fill="#ef8a3c" />
-        <text x="36" y="5" className="map-label serif" fontSize="22">Zulia</text>
+        <text x="38" y="10" className="map-label serif" style={{ fontSize: 34 }}>Zulia</text>
       </g>
       <g id="summit" style={{ opacity: 0 }}>
         <path d="M0 -7 L7 5 L-7 5 Z" fill="#ef8a3c" />
@@ -199,12 +212,12 @@ export function ZoomMap({ className = "", autoplay = true, onStage, loop = false
         <rect x="-9" y="-2" width="18" height="4" fill="currentColor" transform="rotate(-25)" />
       </g>
       <g id="labels" style={{ opacity: 0 }}>
-        <text id="lbl-zulia" className="map-label serif" textAnchor="middle" fontSize="22" fill="#f6d9c2">Zulia Central Forest Reserve</text>
+        <text id="lbl-zulia" className="map-label serif" textAnchor="middle" fill="#f6d9c2">Zulia Central Forest Reserve</text>
         <text id="lbl-kidepo" className="map-label" textAnchor="middle" opacity="0.8">Kidepo Valley National Park</text>
-        <text id="lbl-summit" className="map-label">Mount Zulia · 2,149 m</text>
+        <text id="lbl-summit" className="map-label" textAnchor="end">Mount Zulia · 2,149 m</text>
         <text id="lbl-airstrip" className="map-label" opacity="0.8">Apoka airstrip</text>
-        <text id="lbl-ssudan" className="map-label" textAnchor="middle" opacity="0.6" fontSize="13" letterSpacing="0.2em">SOUTH SUDAN</text>
-        <text id="lbl-kenya" className="map-label" textAnchor="middle" opacity="0.6" fontSize="13" letterSpacing="0.2em">KENYA</text>
+        <text id="lbl-ssudan" className="map-label" textAnchor="middle" opacity="0.6" style={{ fontSize: 22 }} letterSpacing="0.2em">SOUTH SUDAN</text>
+        <text id="lbl-kenya" className="map-label" textAnchor="middle" opacity="0.6" style={{ fontSize: 22 }} letterSpacing="0.2em">KENYA</text>
       </g>
       <text className="sr-only">{stage}</text>
     </svg>
