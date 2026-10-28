@@ -117,7 +117,7 @@ export function FeatureMap({ className = "" }: { className?: string }) {
         </g>
         {/* access points draw outside the clip so labels near the frame edge survive */}
         {on.access && <g>
-          {layers.access.map((p, i) => { let [x, y] = xy(p.c); const inside = x > 30 && x < W - 30 && y > 30 && y < H - 60; const air = p.k === "airport" || p.k === "airstrip";
+          {layers.access.map((p, i) => { const [x, y] = xy(p.c); const inside = x > 30 && x < W - 30 && y > 30 && y < H - 60; const air = p.k === "airport" || p.k === "airstrip";
             if (!inside) return null;
             return (
             <g key={i}>
