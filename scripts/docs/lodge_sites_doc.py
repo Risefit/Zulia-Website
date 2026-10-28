@@ -27,17 +27,33 @@ import re as _re
 _c = open(f'{ROOT}/public/contours.svg').read()
 CONTOUR_PATHS = _re.search(r'<g[^>]*>(.*)</g>', _c, _re.S).group(1)
 _cid=[0]
+def _blend(bg, fg, a):
+    bg=[int(bg[i:i+2],16) for i in (1,3,5)]; fg=[int(fg[i:i+2],16) for i in (1,3,5)]
+    return '#%02x%02x%02x' % tuple(round(bg[i]*(1-a)+fg[i]*a) for i in range(3))
 def contour_bg(dark=False):
+    """Vector contour backdrop. No patterns, masks or group opacity (macOS Preview rasterises those):
+    the contour path is drawn directly, clipped into horizontal bands whose stroke colour is pre-blended
+    to fade down the page, as on the website."""
     _cid[0]+=1; u=_cid[0]
-    # Vector contour backdrop, tiled like the website (1400px tile) and faded towards the foot of the page.
-    col = '#f4efe6' if dark else '#8a6a4b'; op = 0.16 if dark else 0.26
-    scale = 1400 / 1200  # 1400 CSS px tile, as on the website; page is 793.7 × 1122.5 CSS px
-    return f'''<svg class="contours" xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 793.7 1122.5" preserveAspectRatio="none">
-<defs><pattern id="cp{u}" patternUnits="userSpaceOnUse" width="{1200*scale:.3f}" height="{700*scale:.3f}" patternTransform="scale(1)">
-<g transform="scale({scale:.5f})" fill="none" stroke="{col}" stroke-width="0.7" stroke-linejoin="round">{CONTOUR_PATHS}</g></pattern>
-<linearGradient id="cg{u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="1"/><stop offset=".6" stop-color="#fff" stop-opacity=".4"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
-<mask id="cm{u}"><rect width="793.7" height="1122.5" fill="url(#cg{u})"/></mask></defs>
-<rect width="793.7" height="1122.5" fill="url(#cp{u})" mask="url(#cm{u})" opacity="{op}"/></svg>'''
+    bg = '#2a2824' if dark else '#f4efe6'; fg = '#f4efe6' if dark else '#8a6a4b'; top = 0.16 if dark else 0.26
+    W_, H_ = 793.7, 1122.5; scale = 1400/1200; th = 700*scale
+    bands = 8; out=[f'<svg class="contours" xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 {W_} {H_}" preserveAspectRatio="none"><defs>']
+    for i in range(bands):
+        out.append(f'<clipPath id="b{u}_{i}"><rect x="0" y="{H_*i/bands:.2f}" width="{W_}" height="{H_/bands+0.5:.2f}"/></clipPath>')
+    out.append(f'<g id="cpath{u}">{CONTOUR_PATHS}</g></defs>')
+    for i in range(bands):
+        f = (i+0.5)/bands; alpha = top * (1.0 if f < 0.1 else max(0.0, 1 - (f-0.1)/0.9)) ** 1.1
+        col = _blend(bg, fg, alpha)
+        if alpha < 0.01: continue
+        out.append(f'<g clip-path="url(#b{u}_{i})" fill="none" stroke="{col}" stroke-width="0.7" stroke-linejoin="round">')
+        y0, y1 = H_*i/bands, H_*(i+1)/bands
+        for ty in (0, th):
+            if ty > y1 or ty + th < y0: continue
+            out.append(f'<use href="#cpath{u}" transform="translate(0,{ty:.2f}) scale({scale:.5f})"/>')
+        out.append('</g>')
+    out.append('</svg>'); return ''.join(out)
+MARK = open(f'{ROOT}/public/mark.svg').read()
+MARK_LIGHT = open(f'{ROOT}/public/mark-light.svg').read()
 
 # ---------------- copy ----------------
 ZONES = {
