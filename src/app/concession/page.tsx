@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ZoomMap } from "@/components/ZoomMap";
-import { FeatureMap } from "@/components/FeatureMap";
+import { MapTabs } from "@/components/MapTabs";
 import { PageHero, Section, Photo, Stat, Cta } from "@/components/ui";
 import { facts, photos } from "@/lib/site";
 
@@ -72,26 +72,14 @@ export default function Concession() {
           </div>
         </div>
 
-        {/* Layered map */}
+        {/* Layered map / satellite timeline */}
         <div className="relative mx-auto max-w-7xl px-5 pb-20 sm:px-8">
-          <div className="grid gap-8 lg:grid-cols-[1fr_18rem] lg:items-start">
-            <FeatureMap className="overflow-hidden rounded-sm border border-bone/10 bg-[#1f1d1a]" />
-            <div>
-              <h2 className="text-[clamp(1.6rem,2.8vw,2.4rem)]">The reserve, layer by layer</h2>
-              <p className="mt-4 leading-relaxed text-bone/80">
-                Rivers, seasonal streams, roads, tracks, peaks and settlements from OpenStreetMap, on the NFA boundary. Switch layers on
-                and off below the map. Hover a feature for its name.
-              </p>
-              <p className="mt-3 leading-relaxed text-bone/80">
-                Everything east of the boundary is thinly mapped: that is the honest picture of a reserve no one has worked in. Our own
-                survey, trail by trail, is what fills it in.
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-bone/60">
-                The optional lodge-site layer shows twelve hilltop positions ranked by elevation, relief, horizon and distance to water. They
-                are desk-based candidates for ground-truthing, not proposals.
-              </p>
-            </div>
-          </div>
+          <h2 className="mb-6 text-[clamp(1.6rem,2.8vw,2.4rem)]">The reserve, two ways</h2>
+          <MapTabs />
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-bone/60">
+            Everything east of the boundary is thinly mapped: that is the honest picture of a reserve no one has worked in. The optional lodge-site layer shows
+            twelve hilltop positions ranked by elevation, relief, horizon and distance to water; they are desk-based candidates for ground-truthing, not proposals.
+          </p>
         </div>
 
         {/* Google Earth */}
