@@ -44,13 +44,25 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
   {
     id: "ranching",
     title: "Wildlife and livestock partners",
-    photo: photos.eland,
+    photo: photos.escarpment,
     lede: "Karamoja is cattle country. The plan works with that, not against it.",
     body: [
       "We do not intend to run a company herd. We intend to agree managed dry-season grazing with the Dodoth kraals on defined blocks of the reserve, tied to a grazing plan and a no-fire rule, and to pair that with a buying scheme that pays better prices for cattle from compliant kraals. Wildlife ranching and game-meat value chains may follow once populations recover and UWA licences allow.",
       "Partners with experience of integrating livestock and wildlife on rangeland in East Africa, or of community livestock-to-market programmes, can shape this from the beginning.",
     ],
     fit: "Rangeland managers, livestock enterprises and conservancies with a working model of wildlife and cattle sharing ground.",
+  },
+  {
+    id: "breeding",
+    title: "Breeding and restocking partners",
+    photo: photos.eland,
+    lede: "Roan, oryx and gazelle have nowhere in Uganda to come back from. We plan to build the source herds.",
+    body: [
+      "Kidepo has lost its roan and Beisa oryx, and Bright's gazelle, kudu and eland survive in tens or low hundreds. The licence provides for game ranching under Uganda Wildlife Authority licensing, and we plan four breeding ranches on the reserve's gentle, watered western side: a breeding hub, a predator-proof roan complex, a plains ranch for eland, oryx and hartebeest, and a community ranch for gazelle and ostrich.",
+      "Five species start from about 125 founders of East African subspecies, bred to IUCN translocation standards. On the base case the ranches release around 330 animals to Kidepo and other parks in their first ten years. We are looking for ranch operators, sanctuary partners, species sponsors and restocking partners.",
+    ],
+    fit: "Conservation NGOs with breeding or translocation experience, conservancy and ranch operators, zoos and foundations that sponsor species, and park managers who need founder stock.",
+    report: { label: "Breeding partners prospectus (PDF)", href: "/reports/Zulia_Breeding_Partners_Prospectus.pdf" },
   },
   {
     id: "adventure",
