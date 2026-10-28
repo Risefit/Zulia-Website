@@ -1,6 +1,6 @@
 # Zulia in two minutes — script and storyboard
 
-Running time 2:00. The rendered cut is `public/media/zulia-film.mp4`, with an original synthesised score (`scripts/score.py`, regenerate and re-mix with `npm run score`). The score is a placeholder of the right shape — strings in D minor lifting to F major at 1:20 — and should be replaced with a licensed or commissioned recording before public release. Voice-over below is
+Running time 2:00. The rendered cut is `public/media/zulia-film.mp4`. Music is the recording supplied on 28 Oct 2026 (`public/media/zulia-theme.m4a`, 1:42), trimmed at 1:35 where it fades, looped once with a 4-second crossfade to fill 2:01, loudness-normalised to -16 LUFS and faded out over the last five seconds. Re-mix with `npm run score` (see `scripts/mix-music.sh`). A synthesised alternative score remains in `scripts/score.py`. Confirm the rights to the recording before public release. Voice-over below is
 written to be read slowly by one voice — Christo, or a Ugandan narrator — at about 110 words a minute.
 Music: a single sustained instrument (cello, kora or nyatiti) that lifts at 1:20. No percussion until the plan sequence.
 

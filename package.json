@@ -10,7 +10,7 @@
     "fetch-media": "node scripts/fetch-media.mjs",
     "film": "node scripts/record-film.mjs http://localhost:3000 public/media/zulia-film.mp4",
     "geo": "node scripts/build-geo.mjs && node scripts/rewind.mjs",
-    "score": "python3 scripts/score.py public/media/zulia-score.wav && ffmpeg -y -i public/media/zulia-film.mp4 -i public/media/zulia-score.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 160k -shortest /tmp/zf.mp4 && mv /tmp/zf.mp4 public/media/zulia-film.mp4"
+    "score": "bash scripts/mix-music.sh"
   },
   "dependencies": {
     "@fontsource/albert-sans": "^5.3.0",
