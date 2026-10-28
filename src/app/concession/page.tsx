@@ -118,28 +118,33 @@ export default function Concession() {
       </section>
 
       {/* Getting there */}
-      <Section id="getting-there">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
+      <Section id="getting-there" compact>
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-start">
           <div>
             <h2 className="text-[clamp(1.9rem,3.5vw,3rem)]">Getting there</h2>
-            <p className="prose-measure mt-5 leading-relaxed text-ink/80">
-              Remoteness is the reason Zulia survived; it is also the first thing every partner asks about. Here is the position as it stands,
-              and how it is about to change.
+            <p className="prose-measure mt-4 leading-relaxed text-ink/80">
+              1 h 45 by air from Entebbe to the Apoka airstrip, 23 km from the boundary; the new Kidepo International Airport will be 21 km away.
             </p>
-            <div className="mt-8 grid grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-x-6 gap-y-8">
-              <Stat value="21 km" label="new airport to the reserve boundary" />
-              <Stat value="1 h 45" label="Entebbe or Kajjansi to Kidepo by air" />
-              <Stat value="10–12 h" label="Kampala to Kidepo by road" />
+            <div className="mt-6 grid grid-cols-3 gap-x-4 gap-y-6">
+              <Stat value="21 km" label="new airport to boundary" />
+              <Stat value="1 h 45" label="Entebbe to Kidepo by air" />
+              <Stat value="10–12 h" label="Kampala by road" />
             </div>
           </div>
-          <dl className="divide-y divide-ink/15 border-y border-ink/15">
-            {access.map(([k, v]) => (
-              <div key={k} className="grid gap-2 py-5 sm:grid-cols-[14rem_1fr]">
-                <dt className="font-medium">{k}</dt>
-                <dd className="text-ink/80 leading-relaxed">{v}</dd>
-              </div>
-            ))}
-          </dl>
+          <details className="group border-y border-ink/15">
+            <summary className="flex cursor-pointer list-none items-center justify-between py-4 text-left font-medium [&::-webkit-details-marker]:hidden">
+              <span>Air, road and cross-border detail</span>
+              <span className="ml-4 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-ink/25 text-ink/70 transition group-open:rotate-45" aria-hidden>+</span>
+            </summary>
+            <dl className="divide-y divide-ink/15 border-t border-ink/15">
+              {access.map(([k, v]) => (
+                <div key={k} className="grid gap-2 py-4 sm:grid-cols-[12rem_1fr]">
+                  <dt className="font-medium">{k}</dt>
+                  <dd className="text-ink/80 leading-relaxed">{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </details>
         </div>
       </Section>
 
