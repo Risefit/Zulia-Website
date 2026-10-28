@@ -23,7 +23,21 @@ FONTS = f"""
 """
 MARK = open(f'{ROOT}/public/mark.svg').read()
 MARK_LIGHT = open(f'{ROOT}/public/mark-light.svg').read()
-CONTOURS = base64.b64encode(open(f'{ROOT}/public/contours.svg','rb').read()).decode()
+import re as _re
+_c = open(f'{ROOT}/public/contours.svg').read()
+CONTOUR_PATHS = _re.search(r'<g[^>]*>(.*)</g>', _c, _re.S).group(1)
+_cid=[0]
+def contour_bg(dark=False):
+    _cid[0]+=1; u=_cid[0]
+    # Vector contour backdrop, tiled like the website (1400px tile) and faded towards the foot of the page.
+    col = '#f4efe6' if dark else '#8a6a4b'; op = 0.16 if dark else 0.26
+    scale = 1400 / 1200  # 1400 CSS px tile, as on the website; page is 793.7 × 1122.5 CSS px
+    return f'''<svg class="contours" xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 793.7 1122.5" preserveAspectRatio="none">
+<defs><pattern id="cp{u}" patternUnits="userSpaceOnUse" width="{1200*scale:.3f}" height="{700*scale:.3f}" patternTransform="scale(1)">
+<g transform="scale({scale:.5f})" fill="none" stroke="{col}" stroke-width="0.7" stroke-linejoin="round">{CONTOUR_PATHS}</g></pattern>
+<linearGradient id="cg{u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="1"/><stop offset=".6" stop-color="#fff" stop-opacity=".4"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<mask id="cm{u}"><rect width="793.7" height="1122.5" fill="url(#cg{u})"/></mask></defs>
+<rect width="793.7" height="1122.5" fill="url(#cp{u})" mask="url(#cm{u})" opacity="{op}"/></svg>'''
 
 # ---------------- copy ----------------
 ZONES = {
@@ -166,26 +180,34 @@ def card(i, s, full=True):
 </article>'''
 
 zones_html = ''.join(f'<div class="zone"><h4>{v[0]}</h4><p>{v[1]}</p><p class="zone-sites">Sites {", ".join(str(k) for k, (z, _, _) in SITES.items() if z == key)}</p></div>' for key, v in ZONES.items())
-cards_full = ''.join(card(i, s, True) for i, s in enumerate(sites[:12]))
-cards_brief = ''.join(card(i, s, False) for i, s in enumerate(sites[12:], 12))
+def page(inner, n, dark=False):
+    return f'<section class="page{" dark" if dark else ""}">{contour_bg(dark)}<div class="rel">{inner}</div><div class="foot"><span>Zulia Conservancy · Lodge sites</span><span>{n}</span></div></section>'
+full = [card(i, sites[i], True) for i in range(12)]
+brief = [card(i, sites[i], False) for i in range(12, 30)]
+METHOD = '<p class="method" style="margin-top:6mm"><b>Method.</b> Terrain: AWS Terrain Tiles (SRTM/NASADEM class, ~30 m). Candidates: local maxima with at least 60 m of relief within 1 km. Score = 0.6 × openness (share of 36 compass directions with a clear line of sight beyond 3 km) + 0.6 × mean horizon distance (as % of 10 km) + relief (capped at 150 m) ÷ 1.5, less penalties for summit slope over 20%, river more than 2.5 km away, and proximity to the boundary; 1.2 km minimum separation between sites. Features from OpenStreetMap (© OpenStreetMap contributors, ODbL). Boundary: NFA 2021 via WDPA 40604.</p>'
+site_pages = [
+  page('<div class="eyebrow">Sites 1–12</div><h2>The places themselves</h2>' + ''.join(full[0:2]), 4),
+  page(''.join(full[2:5]), 5), page(''.join(full[5:8]), 6), page(''.join(full[8:11]), 7),
+  page(full[11] + '<div class="eyebrow" style="margin-top:8mm">Sites 13–30</div><h2>The rest of the shortlist</h2>' + ''.join(brief[0:3]), 8),
+  page(''.join(brief[3:8]), 9), page(''.join(brief[8:13]), 10), page(''.join(brief[13:18]) + METHOD, 11),
+]
+SITE_PAGES = ''.join(site_pages)
 
 doc = f'''<!doctype html><html><head><meta charset="utf-8"><title>Zulia — Thirty places to wake up</title>
 <style>
 {FONTS}
 :root{{--granite:#2a2824;--kopje:#8a6a4b;--olive:#8f8a57;--palm:#35503a;--sand:#e9e1d2;--bone:#f4efe6;--ink:#1c1b18;--dawn:#ef8a3c;--ember:#c75f27}}
 @page{{size:A4;margin:0}}
-@page flow{{size:A4;margin:16mm 0 14mm}}
-html{{background:#f4efe6}}
-.flow{{page:flow}}
+
 *{{box-sizing:border-box}}
 body{{margin:0;font-family:'Albert Sans',system-ui,sans-serif;color:var(--ink);background:var(--bone);font-size:10.5pt;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 h1,h2,h3,h4,.display{{font-family:'Bodoni Moda',Georgia,serif;font-weight:400;letter-spacing:-.01em;line-height:1.05;margin:0}}
 .page{{width:210mm;min-height:297mm;padding:18mm 16mm 16mm;position:relative;page-break-after:always;overflow:hidden}}
 .page:last-child{{page-break-after:auto}}
-.contours{{position:absolute;inset:0;background:url(data:image/svg+xml;base64,{CONTOURS}) center/1400px auto;opacity:.28;pointer-events:none}}
+.contours{{position:absolute;left:0;top:0;width:210mm;height:297mm;pointer-events:none}}
 .dark{{background:var(--granite);color:var(--bone)}}
-.dark .contours{{opacity:.35}}
 .rel{{position:relative}}
+
 .brand{{display:flex;align-items:center;gap:10px}}
 .brand svg{{width:38px;height:38px}}
 .brand .name{{font-family:'Bodoni Moda';font-size:17pt;line-height:1}}
@@ -206,6 +228,7 @@ h2{{font-size:28pt;margin:4mm 0 5mm}}
 .zone-sites{{font-size:8.5pt;color:var(--kopje);letter-spacing:.04em}}
 .legend{{display:flex;gap:6mm;font-size:8.5pt;margin-top:3mm;color:rgba(244,239,230,.8)}}
 .legend i{{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:-1px}}
+.site:first-child{{border-top:none}}
 .site{{display:grid;grid-template-columns:200px 1fr;gap:6mm;align-items:start;break-inside:avoid;padding:4mm 0;border-top:1px solid rgba(28,27,24,.15)}}
 .site.brief{{grid-template-columns:120px 1fr;padding:3mm 0;gap:5mm}}
 .site .map svg{{display:block;border-radius:2px}}
@@ -230,7 +253,7 @@ h2{{font-size:28pt;margin:4mm 0 5mm}}
 .tier b{{font-family:'Bodoni Moda';font-weight:400;font-size:18pt;display:block}}
 </style></head><body>
 
-<section class="page dark cover"><div class="contours"></div><div class="glow"></div>
+<section class="page dark cover">{contour_bg(True)}<div class="glow"></div>
   <div class="rel brand">{MARK_LIGHT}<span><span class="name">Zulia Conservancy</span><span class="sub">UGANDA</span></span></div>
   <div class="rel"><div class="eyebrow">Lodge sites · desk study · October 2026</div>
     <h1>Thirty places to wake up</h1>
@@ -238,7 +261,7 @@ h2{{font-size:28pt;margin:4mm 0 5mm}}
   <div class="rel meta">Zulia Conservancy (Uganda) Limited · NFA Licence No. 30 · zuliaconservancy.org · Confidential: for prospective partners</div>
 </section>
 
-<section class="page"><div class="contours"></div>
+<section class="page">{contour_bg()}
   <div class="rel intro">
     <div class="eyebrow">How to read this</div>
     <h2>Chosen for the morning view</h2>
@@ -256,7 +279,7 @@ h2{{font-size:28pt;margin:4mm 0 5mm}}
   <div class="foot"><span>Zulia Conservancy · Lodge sites</span><span>2</span></div>
 </section>
 
-<section class="page dark"><div class="contours"></div>
+<section class="page dark">{contour_bg(True)}
   <div class="rel"><div class="eyebrow">The shortlist</div><h2>Where they are</h2>
   <div style="margin-top:4mm">{overview()}</div>
   <div class="legend"><span><i style="background:#ef8a3c"></i>Sites 1–5</span><span><i style="background:#f6d9c2"></i>Sites 6–12</span><span><i style="background:#9fd27a"></i>Sites 13–30</span><span><i style="background:#6fb7e0"></i>Rivers and streams</span><span><i style="background:#f0c070"></i>Roads and tracks</span><span><i style="background:#a0c8e0;opacity:.6"></i>Dual-management zone</span></div>
@@ -264,14 +287,7 @@ h2{{font-size:28pt;margin:4mm 0 5mm}}
   <div class="foot"><span>Zulia Conservancy · Lodge sites</span><span>3</span></div>
 </section>
 
-<section class="page flow" style="min-height:0;page-break-after:auto;padding-top:0"><div class="contours"></div>
-  <div class="rel"><div class="eyebrow">Sites 1–12</div><h2>The places themselves</h2>
-  {cards_full}
-  <div class="eyebrow" style="margin-top:10mm">Sites 13–30</div><h2>The rest of the shortlist</h2>
-  {cards_brief}
-  <p class="method" style="margin-top:8mm"><b>Method.</b> Terrain: AWS Terrain Tiles (SRTM/NASADEM class, ~30 m). Candidates: local maxima with at least 60 m of relief within 1 km. Score = 0.6 × openness (share of 36 compass directions with a clear line of sight beyond 3 km) + 0.6 × mean horizon distance (as % of 10 km) + relief (capped at 150 m) ÷ 1.5, less penalties for summit slope over 20%, river more than 2.5 km away, and proximity to the boundary; 1.2 km minimum separation between sites. Features from OpenStreetMap (© OpenStreetMap contributors, ODbL). Boundary: NFA 2021 via WDPA 40604.</p>
-  </div>
-</section>
+{SITE_PAGES}
 </body></html>'''
 open(f'{OUT}/sites.html', 'w').write(doc)
 print('html', len(doc))
