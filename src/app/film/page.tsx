@@ -16,7 +16,19 @@ export default async function FilmPage({ searchParams }: { searchParams: Promise
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <h1 className="text-[clamp(2rem,4vw,3.4rem)]">Zulia in two minutes</h1>
           <p className="prose-measure mt-4 text-bone/80">Where it is, what it is, and what we intend to do about it.</p>
-          <div className="mt-8 overflow-hidden rounded-sm"><Film /></div>
+          <div className="mt-8 overflow-hidden rounded-sm bg-black">
+            <video
+              controls
+              playsInline
+              preload="metadata"
+              poster="/media/aerial-inselberg.jpg"
+              className="aspect-video w-full"
+              src="/media/zulia-film.mp4"
+            >
+              Your browser cannot play this video. <a href="/media/zulia-film.mp4" download>Download it instead.</a>
+            </video>
+          </div>
+          <p className="caption mt-3 text-bone/60">Two minutes, with sound. Press play; pause, scrub or go full-screen with the controls.</p>
         </div>
         <div className="h-16" />
       </section>

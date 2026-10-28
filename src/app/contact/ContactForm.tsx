@@ -6,6 +6,8 @@ const topics: Record<string, string> = {
   lodges: "Lodge or camp operation",
   hunting: "Hunting outfitting",
   adventure: "Adventure tourism",
+  birding: "Birding tours",
+  botanical: "Botanical garden and plant conservation",
   funds: "Conservation funding",
   ranching: "Wildlife and livestock",
   research: "Research, film or aviation",

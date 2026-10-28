@@ -61,6 +61,30 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
     href: "/opportunities/adventure",
   },
   {
+    id: "birding",
+    title: "Birding tour operators",
+    photo: photos.giraffe,
+    lede: "Where East African and Sahelian birds meet, and almost nobody has kept a list.",
+    body: [
+      "Kidepo Valley National Park records around 475 bird species, the second-highest total of any Ugandan park, with a run of dry-country specials found nowhere else in the country: ostrich, Kori bustard, secretarybird, Abyssinian ground hornbill, Jackson's hornbill, Clapperton's francolin, pygmy falcon, Egyptian vulture, Karamoja apalis and the Ethiopian–Somali species that reach their western limit here. Zulia is the same landscape with more altitude, more riverine forest and no records at all.",
+      "We are looking for one or two birding operators to help build the species list, scout the sites and bring the first groups, working from the shared base camp and the fly camps on the river. The reserve's altitude range, from the Kidepo River at 1,040 m to the summit at 2,149 m, promises montane species on the escarpment that have never been documented on the Ugandan side.",
+    ],
+    fit: "Specialist birding companies and guides with East African experience who want a frontier site, and who will share their records with the Trust's monitoring programme.",
+    href: "/contact?topic=birding",
+  },
+  {
+    id: "botanical",
+    title: "Botanical garden and indigenous plant conservation",
+    photo: photos.pool,
+    lede: "A living collection of Karamoja's plants, in Karamoja.",
+    body: [
+      "The licence provides for a botanical garden, and the South African National Biodiversity Institute expressed interest in 2019 in helping to design a conservation garden in the reserve. The idea is a garden and seed bank for the dryland flora of north-eastern Uganda: the Combretum and Acacia woodland types, borassus and doum palm, shea (Vitellaria nilotica), frankincense (Boswellia), desert date (Balanites), the aloes, euphorbias and medicinal plants the Dodoth and Ik have used for generations, and the little-known montane flora of the Zulia hills.",
+      "It would serve research, propagation for restoration planting in the reserve, education for visiting schools and visitors, and a nursery enterprise for the neighbouring communities. We are looking for a botanical institution, a university or a foundation to partner in its design, a baseline flora survey and the first collections.",
+    ],
+    fit: "Botanic gardens, herbaria and plant-conservation bodies in Africa and beyond; universities with dryland ecology programmes; funders of seed banking and ethnobotany.",
+    href: "/contact?topic=botanical",
+  },
+  {
     id: "research",
     title: "Researchers, filmmakers and aviation",
     photo: photos.inselberg,
@@ -94,7 +118,7 @@ export default function Opportunities() {
               <p className="display mt-4 text-xl text-kopje">{t.lede}</p>
               <div className="prose-measure mt-5 leading-relaxed text-ink/80">{t.body.map((p) => <p key={p.slice(0, 20)}>{p}</p>)}</div>
               <p className="prose-measure mt-6 border-l-2 border-palm pl-4 text-ink/80"><span className="font-medium">Who fits: </span>{t.fit}</p>
-              <div className="mt-8 flex flex-wrap gap-3"><Cta href={`/contact?topic=${t.id}`}>Start a conversation</Cta>{"href" in t && t.href && <Cta href={t.href} ghost>See the trail concept</Cta>}</div>
+              <div className="mt-8 flex flex-wrap gap-3"><Cta href={`/contact?topic=${t.id}`}>Start a conversation</Cta>{"href" in t && t.href && t.href.startsWith("/opportunities") && <Cta href={t.href} ghost>See the trail concept</Cta>}</div>
             </div>
           </article>
         </Section>
