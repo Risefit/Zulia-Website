@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ZoomMap } from "@/components/ZoomMap";
+import { FeatureMap } from "@/components/FeatureMap";
 import { PageHero, Section, Photo, Stat, Cta } from "@/components/ui";
 import { facts, photos } from "@/lib/site";
 
@@ -18,6 +19,14 @@ const terms = [
   ["Tenure", "No interest in land passes to the licensee. All fixed developments revert to the Government of Uganda at the end of the term."],
 ];
 
+const access = [
+  ["By air today", "Scheduled and charter flights from Entebbe and Kajjansi land at the Apoka (Kidepo) airstrip inside Kidepo Valley National Park, about 1 h 45 min flying time. Apoka is 23 km from the reserve's western boundary and 41 km from its centre in a straight line; by the park road through Kanangorok it is under an hour's drive to the Kidepo River crossing."],
+  ["Kidepo International Airport", "A new international airport is under construction south of the park near Karenga (3°44′N 33°44′E), with a 3,600 m runway designed for direct regional and long-haul arrivals. It is 21 km from the reserve boundary and 39 km from the reserve's centre, roughly the same distance as Apoka. When it opens, Zulia becomes the closest major wilderness to an international gateway anywhere in East Africa."],
+  ["By road", "Kampala to Kidepo is about 570 km and 10–12 hours via Gulu and Kitgum (the Kitgum–Kidepo road is being upgraded alongside the airport), or via Moroto and Kaabong on the eastern route. From Kaabong town the reserve boundary is 40 km north; from Karenga, 36 km."],
+  ["Inside the reserve", "There are no all-weather roads inside Zulia today. Access is by 4×4 track from the Kidepo valley and along the river in the dry season (December to March). Opening a graded spine road from the south-west, with an airstrip on the plains, is in the first-phase plan."],
+  ["From Kenya and South Sudan", "Lokichoggio in Kenya is 32 km from the eastern boundary by air; the Turkana escarpment forms the border. Cross-border tourism circuits with Kidepo and Lotukei in South Sudan are part of the long-term landscape vision, subject to the relevant permits."],
+];
+
 export default function Concession() {
   return (
     <>
@@ -34,8 +43,9 @@ export default function Concession() {
           <div>
             <h2 className="text-[clamp(1.9rem,3.5vw,3rem)]">Where it is</h2>
             <p className="prose-measure mt-5 leading-relaxed text-bone/85">
-              The extreme north-east of Uganda. Kampala is 650 km by road; the Apoka airstrip in Kidepo Valley National Park is
-              forty minutes' drive from the reserve's western boundary. The nearest towns are Kaabong to the south-east and Karenga to the south-west.
+              The extreme north-east of Uganda, 450 km from Entebbe by air and some 570 km by road. The Apoka airstrip in Kidepo Valley National
+              Park lies 23 km from the reserve's western boundary, and the new Kidepo International Airport is being built 21 km from it. The
+              nearest towns are Kaabong to the south-east and Karenga to the south-west.
             </p>
             <div className="mt-8 grid grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-x-6 gap-y-8">
               <Stat value={facts.areaKm2 + " km²"} label="licensed area" />
@@ -59,10 +69,79 @@ export default function Concession() {
                 Zulia was never fully demarcated on the ground; a formal re-survey is one of the licence's first-year obligations.
               </p>
             </div>
-            <a href="/Zulia_Concession.kml" download className="btn btn-ghost mt-8">Download the boundary for Google Earth (KML)</a>
+          </div>
+        </div>
+
+        {/* Layered map */}
+        <div className="relative mx-auto max-w-7xl px-5 pb-20 sm:px-8">
+          <div className="grid gap-8 lg:grid-cols-[1fr_18rem] lg:items-start">
+            <FeatureMap className="overflow-hidden rounded-sm border border-bone/10 bg-[#1f1d1a]" />
+            <div>
+              <h2 className="text-[clamp(1.6rem,2.8vw,2.4rem)]">The reserve, layer by layer</h2>
+              <p className="mt-4 leading-relaxed text-bone/80">
+                Rivers, seasonal streams, roads, tracks, peaks and settlements from OpenStreetMap, on the NFA boundary. Switch layers on
+                and off below the map. Hover a feature for its name.
+              </p>
+              <p className="mt-3 leading-relaxed text-bone/80">
+                Everything east of the boundary is thinly mapped: that is the honest picture of a reserve no one has worked in. Our own
+                survey, trail by trail, is what fills it in.
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-bone/60">
+                The optional lodge-site layer shows twelve hilltop positions ranked by elevation, relief, horizon and distance to water. They
+                are desk-based candidates for ground-truthing, not proposals.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Google Earth */}
+        <div className="relative mx-auto max-w-7xl px-5 pb-20 sm:px-8">
+          <div className="grid gap-8 rounded-sm border border-bone/10 bg-bone/5 p-6 sm:p-8 lg:grid-cols-[1fr_1fr] lg:items-center">
+            <div>
+              <h2 className="text-[clamp(1.6rem,2.8vw,2.4rem)]">Take it into Google Earth</h2>
+              <p className="mt-4 leading-relaxed text-bone/80">
+                The full layered file: boundaries, water, roads and tracks, peaks, settlements and the indicative sites, each in its own
+                folder you can switch on and off, with the reserve in 3D terrain.
+              </p>
+              <ol className="mt-4 list-decimal space-y-1 pl-5 text-sm leading-relaxed text-bone/70">
+                <li>Download the file. On a computer with Google Earth Pro installed, or a phone with the Google Earth app, opening it loads every layer directly.</li>
+                <li>In Google Earth on the web, choose <em>File → Import KML file</em> and pick the download.</li>
+              </ol>
+            </div>
+            <div className="flex flex-wrap gap-3 lg:justify-end">
+              <a href="/Zulia_Maps.kmz" className="btn btn-solid">Download the layered map (KMZ, 180 KB)</a>
+              <a href="https://earth.google.com/web/@4.0262,33.9501,1400a,70000d,35y,0h,45t,0r" target="_blank" rel="noreferrer" className="btn btn-ghost">Fly to Zulia in Google Earth</a>
+              <a href="/Zulia_Concession.kml" download className="btn btn-ghost">Boundary only (KML)</a>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* Getting there */}
+      <Section id="getting-there">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
+          <div>
+            <h2 className="text-[clamp(1.9rem,3.5vw,3rem)]">Getting there</h2>
+            <p className="prose-measure mt-5 leading-relaxed text-ink/80">
+              Remoteness is the reason Zulia survived; it is also the first thing every partner asks about. Here is the position as it stands,
+              and how it is about to change.
+            </p>
+            <div className="mt-8 grid grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-x-6 gap-y-8">
+              <Stat value="21 km" label="new airport to the reserve boundary" />
+              <Stat value="1 h 45" label="Entebbe or Kajjansi to Kidepo by air" />
+              <Stat value="10–12 h" label="Kampala to Kidepo by road" />
+            </div>
+          </div>
+          <dl className="divide-y divide-ink/15 border-y border-ink/15">
+            {access.map(([k, v]) => (
+              <div key={k} className="grid gap-2 py-5 sm:grid-cols-[14rem_1fr]">
+                <dt className="font-medium">{k}</dt>
+                <dd className="text-ink/80 leading-relaxed">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </Section>
 
       {/* Terms */}
       <Section>

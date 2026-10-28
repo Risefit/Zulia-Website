@@ -45,7 +45,7 @@ export function PageHero({ title, lede, photo }: { title: string; lede: string; 
   );
 }
 
-export function Section({ children, className = "", tone = "bone" }: { children: React.ReactNode; className?: string; tone?: "bone" | "sand" | "granite" | "palm" }) {
+export function Section({ children, className = "", tone = "bone", id }: { children: React.ReactNode; className?: string; tone?: "bone" | "sand" | "granite" | "palm"; id?: string }) {
   const tones = {
     bone: "bg-bone text-ink",
     sand: "bg-sand text-ink",
@@ -53,7 +53,7 @@ export function Section({ children, className = "", tone = "bone" }: { children:
     palm: "bg-palm text-bone on-dark",
   }[tone];
   return (
-    <section className={`${tones} ${className}`}>
+    <section id={id} className={`${tones} ${className}`}>
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28">{children}</div>
     </section>
   );

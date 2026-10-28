@@ -22,6 +22,7 @@ export default function Contact() {
               <div><dt className="text-sm text-ink/60">Phone and WhatsApp</dt><dd className="display text-2xl"><a href={site.phoneHref} className="hover:underline">{site.phone}</a></dd></div>
               <div><dt className="text-sm text-ink/60">Reserve</dt><dd>{site.address}</dd></div>
               <div><dt className="text-sm text-ink/60">Post</dt><dd>{site.postal}</dd></div>
+              <div><dt className="text-sm text-ink/60">Getting there</dt><dd className="text-ink/80 leading-relaxed">Fly Entebbe or Kajjansi to Apoka (Kidepo), 1 h 45; the reserve boundary is 23 km on. Kidepo International Airport, under construction near Karenga, will be 21 km from the boundary. By road, 10–12 hours from Kampala via Gulu and Kitgum. <a href="/concession#getting-there" className="underline">Details</a>.</dd></div>
             </dl>
             <Social className="mt-10" />
           </div>

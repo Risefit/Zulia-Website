@@ -12,7 +12,8 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
     lede: "Two sites, long leases, a landscape no one else can offer.",
     body: [
       "The licence provides for an exclusive 20-bed wilderness lodge and a 40-bed mid-range camp. We are not building them ourselves. We are looking for operators who will design, build and run them under long-term site leases with a conservation fee attached to every bed-night.",
-      "Sites will be identified with the National Forestry Authority after survey. Candidates include the Kidepo River frontage with its palms and rock pools, and the foothills below Mount Zulia with views over the whole Kidepo system.",
+      "Sites will be identified with the National Forestry Authority after survey. Candidates include the Kidepo River frontage with its palms and rock pools, and hilltop positions in the foothills below Mount Zulia with 360-degree views over the whole Kidepo system (see the layered map on the concession page).",
+      "Access is better than the map suggests: the Apoka airstrip is 1 h 45 by air from Entebbe and 23 km from the boundary, and Kidepo International Airport, now under construction, will be 21 km away.",
     ],
     fit: "Operators already in East Africa with a record in remote, low-density camps; a design that touches the ground lightly; and an interest in being first into a new landscape rather than tenth into an old one.",
   },
