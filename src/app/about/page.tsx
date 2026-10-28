@@ -62,10 +62,9 @@ export default function About() {
           <div className="border-t border-ink/20 pt-6">
             <p className="display text-2xl">Vision</p>
             <p className="prose-measure mt-4 leading-relaxed text-ink/80">
-              Wildlife preservation. By 2040 the animals of the Kidepo ecosystem are safe on the Zulia side of the river: elephant, buffalo,
-              giraffe, eland and lion move freely across the border hills and the species Uganda has lost here, roan, oryx, cheetah in
-              numbers, are back. The Dodoth and Ik communities earn more from living wildlife than from charcoal or raiding, and Zulia is
-              the proof that a private licensee can preserve a public reserve.
+              By 2040, Zulia and Kidepo function as one 2,500 km² landscape in which elephant, buffalo, giraffe and lion move freely across
+              the border hills, the Dodoth and Ik communities earn more from wildlife than from charcoal or raiding, and Uganda has a
+              model for how a private licensee can run a public reserve.
             </p>
           </div>
         </div>
