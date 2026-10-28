@@ -28,7 +28,7 @@ const programmes = [
   {
     title: "Access",
     body: "Management tracks from the Kidepo side and a licensed airstrip, so that a reserve that NFA's own staff could not enter in 2019 is under two hours' flying from Entebbe, and twenty kilometres from the international airport now being built at Kidepo.",
-    photo: photos.river,
+    photo: photos.kidepoValley,
   },
   {
     title: "Partners, not projects",

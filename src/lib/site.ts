@@ -80,6 +80,7 @@ export const photos = {
   sunset: { src: "/media/acacia-sunset.jpg", alt: "A flat-topped acacia silhouetted against the sunset, hills on the horizon", w: 1280, h: 960 } as Photo,
   camp: { src: "/media/riverbed-camp.jpg", alt: "Camp chairs and a table set out on a sandy riverbed under acacias", w: 1280, h: 960 } as Photo,
   palms: { src: "/media/palm-riverbed-track.jpg", alt: "A rock riverbed running between borassus palms and riverine forest", w: 1280, h: 960 } as Photo,
+  kidepoValley: { src: "/media/kidepo-valley.jpg", alt: "The Kidepo valley: granite hills, wooded slopes and open grassland on the valley floor", w: 996, h: 711 } as Photo,
   escarpment: { src: "/media/track-escarpment.jpg", alt: "A two-wheel track across the grass towards a cloud-capped escarpment", w: 1280, h: 960 } as Photo,
 
   lion: { src: commons("Kidepo Lion (48663880907).jpg"), alt: "A male lion resting on a granite kopje in Kidepo", credit: "Rod Waddington", licence: "CC BY-SA 2.0", source: "https://commons.wikimedia.org/wiki/File:Kidepo_Lion_(48663880907).jpg", w: 1600, h: 1068 } as Photo,
