@@ -9,10 +9,10 @@ export default function Home() {
       {/* Hero: the map is the picture */}
       <section className="dawn-glow relative isolate min-h-[100svh] overflow-hidden bg-granite text-bone on-dark">
         <div className="contours text-kopje opacity-40" />
-        <div className="relative mx-auto grid min-h-[100svh] max-w-7xl grid-cols-1 items-center gap-8 px-5 pb-16 pt-28 sm:px-8 lg:grid-cols-[1fr_1.1fr] lg:pt-20">
+        <div className="relative mx-auto grid min-h-[100svh] max-w-7xl grid-cols-1 items-center gap-8 px-5 pb-16 pt-28 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:pt-20">
           <div className="order-2 lg:order-1">
             <p className="text-sm text-bone/70">Kaabong District · Karamoja · Uganda</p>
-            <h1 className="mt-4 text-[clamp(2.8rem,7vw,6rem)]">
+            <h1 className="mt-4 text-[clamp(2.6rem,5.4vw,5.6rem)]">
               One thousand square kilometres,<br className="hidden sm:block" /> <em className="dawn">fifty years</em>, one chance.
             </h1>
             <p className="prose-measure mt-7 text-lg leading-relaxed text-bone/85">
@@ -60,7 +60,7 @@ export default function Home() {
                 That is exactly why it is still intact.
               </p>
             </div>
-            <div className="mt-10 grid grid-cols-3 gap-6">
+            <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-x-6 gap-y-8">
               <Stat value={`${facts.areaKm2} km²`} label="licensed area" />
               <Stat value={`${facts.termYears} yrs`} label="licence term" />
               <Stat value={`${facts.overlapKm2} km²`} label="shared with Kidepo Valley NP" />

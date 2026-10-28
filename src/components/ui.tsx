@@ -70,7 +70,7 @@ export function Cta({ href, children, ghost = false }: { href: string; children:
 export function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <div className="display whitespace-nowrap text-[clamp(1.7rem,3.2vw,3rem)] leading-none">{value}</div>
+      <div className="display text-[clamp(1.6rem,2.6vw,2.8rem)] leading-none">{value.replace(" km²", "\u00a0km²").replace(" yrs", "\u00a0yrs").replace(" m", "\u00a0m")}</div>
       <div className="mt-2 text-sm opacity-70">{label}</div>
     </div>
   );

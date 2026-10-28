@@ -37,7 +37,7 @@ export default function Concession() {
               The extreme north-east of Uganda. Kampala is 650 km by road; the Apoka airstrip in Kidepo Valley National Park is
               forty minutes' drive from the reserve's western boundary. The nearest towns are Kaabong to the south-east and Karenga to the south-west.
             </p>
-            <div className="mt-8 grid grid-cols-3 gap-6">
+            <div className="mt-8 grid grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-x-6 gap-y-8">
               <Stat value={facts.areaKm2 + " km²"} label="licensed area" />
               <Stat value="4°N 34°E" label="centre of the reserve" />
               <Stat value={facts.summitM + " m"} label="Mount Zulia summit" />
