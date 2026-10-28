@@ -107,8 +107,30 @@ export default function Concession() {
         </div>
       </section>
 
+      {/* Terms */}
+      <Section>
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
+          <div>
+            <h2 className="text-[clamp(1.9rem,3.5vw,3rem)]">The terms, plainly</h2>
+            <p className="prose-measure mt-5 leading-relaxed text-ink/80">
+              We publish the substance of the licence because our partners, our regulators and our neighbours should all be able to see
+              what we have agreed to. The full agreement is available to serious counterparties on request.
+            </p>
+            <Photo photo={photos.riverbed} className="mt-8 aspect-[4/3] overflow-hidden" sizes="(min-width:1024px) 40vw, 100vw" />
+          </div>
+          <dl className="divide-y divide-ink/15 border-y border-ink/15">
+            {terms.map(([k, v]) => (
+              <div key={k} className="grid gap-2 py-5 sm:grid-cols-[14rem_1fr]">
+                <dt className="font-medium">{k}</dt>
+                <dd className="text-ink/80 leading-relaxed">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </Section>
+
       {/* Getting there */}
-      <Section id="getting-there" compact>
+      <Section id="getting-there" tone="sage" compact>
         <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-start">
           <div>
             <h2 className="text-[clamp(1.9rem,3.5vw,3rem)]">Getting there</h2>
@@ -135,28 +157,6 @@ export default function Concession() {
               ))}
             </dl>
           </details>
-        </div>
-      </Section>
-
-      {/* Terms */}
-      <Section>
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
-          <div>
-            <h2 className="text-[clamp(1.9rem,3.5vw,3rem)]">The terms, plainly</h2>
-            <p className="prose-measure mt-5 leading-relaxed text-ink/80">
-              We publish the substance of the licence because our partners, our regulators and our neighbours should all be able to see
-              what we have agreed to. The full agreement is available to serious counterparties on request.
-            </p>
-            <Photo photo={photos.riverbed} className="mt-8 aspect-[4/3] overflow-hidden" sizes="(min-width:1024px) 40vw, 100vw" />
-          </div>
-          <dl className="divide-y divide-ink/15 border-y border-ink/15">
-            {terms.map(([k, v]) => (
-              <div key={k} className="grid gap-2 py-5 sm:grid-cols-[14rem_1fr]">
-                <dt className="font-medium">{k}</dt>
-                <dd className="text-ink/80 leading-relaxed">{v}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </Section>
 

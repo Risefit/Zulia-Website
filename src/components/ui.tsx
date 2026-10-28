@@ -45,12 +45,13 @@ export function PageHero({ title, lede, photo }: { title: string; lede: string; 
   );
 }
 
-export function Section({ children, className = "", tone = "bone", id, compact = false }: { children: React.ReactNode; className?: string; tone?: "bone" | "sand" | "granite" | "palm"; id?: string; compact?: boolean }) {
+export function Section({ children, className = "", tone = "bone", id, compact = false }: { children: React.ReactNode; className?: string; tone?: "bone" | "sand" | "granite" | "palm" | "sage"; id?: string; compact?: boolean }) {
   const tones = {
     bone: "bg-bone text-ink",
     sand: "bg-sand text-ink",
     granite: "bg-granite text-bone on-dark",
     palm: "bg-palm text-bone on-dark",
+    sage: "bg-[#dedcc8] text-ink border-y border-ink/10", /* bone tinted toward olive: a quiet change of ground */
   }[tone];
   return (
     <section id={id} className={`${tones} ${className}`}>
