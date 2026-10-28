@@ -4,10 +4,11 @@ import { photos } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Opportunities" };
 
-const tracks: { id: string; title: string; photo: typeof photos.pool; lede: string; body: string[]; fit: string; href?: string }[] = [
+const tracks: { id: string; title: string; photo: typeof photos.pool; lede: string; body: string[]; fit: string; href?: string; report?: { label: string; href: string } }[] = [
   {
     id: "lodges",
     title: "Lodge and camp operators",
+    report: { label: "Lodge sites: thirty places to wake up (PDF)", href: "/reports/Zulia_Lodge_Sites.pdf" },
     photo: photos.pool,
     lede: "Two sites, long leases, a landscape no one else can offer.",
     body: [
@@ -129,7 +130,15 @@ export default function Opportunities() {
               <p className="display mt-4 text-xl text-kopje">{t.lede}</p>
               <div className="prose-measure mt-5 leading-relaxed text-ink/80">{t.body.map((p) => <p key={p.slice(0, 20)}>{p}</p>)}</div>
               <p className="prose-measure mt-6 border-l-2 border-palm pl-4 text-ink/80"><span className="font-medium">Who fits: </span>{t.fit}</p>
-              <div className="mt-8 flex flex-wrap gap-3"><Cta href={`/contact?topic=${t.id}`}>Start a conversation</Cta>{"href" in t && t.href && t.href.startsWith("/opportunities") && <Cta href={t.href} ghost>See the trail concept</Cta>}</div>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Cta href={`/contact?topic=${t.id}`}>Start a conversation</Cta>
+                {"href" in t && t.href && t.href.startsWith("/opportunities") && <Cta href={t.href} ghost>See the trail concept</Cta>}
+                {t.report ? (
+                  <a href={t.report.href} className="btn btn-ghost">{t.report.label}</a>
+                ) : (
+                  <span className="btn btn-ghost cursor-default opacity-50" aria-disabled title="In preparation">Report: in preparation</span>
+                )}
+              </div>
             </div>
           </article>
         </Section>

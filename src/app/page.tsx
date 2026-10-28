@@ -80,11 +80,14 @@ export default function Home() {
           <div className="lg:col-span-1">
             <h2 className="text-[clamp(2rem,4vw,3.4rem)]">The animals are already here</h2>
             <p className="prose-measure mt-6 leading-relaxed text-ink/80">
-              Kidepo Valley holds some ten thousand buffalo, a thousand elephant, Rothschild's giraffe, lion, cheetah and
-              species found nowhere else in Uganda. Zulia is their dry-season range and their corridor north. Secure it,
+              Kidepo Valley is Uganda's buffalo stronghold and holds 400–550 elephant, 163 Nubian giraffe, lion, cheetah and
+              species found nowhere else in the country. Zulia is their dry-season range and their corridor north. Secure it,
               water it, and they return.
             </p>
-            <Link href="/what-we-do" className="mt-6 inline-block underline">How we work →</Link>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a href="/reports/Zulia_Living_Landscape.pdf" className="btn btn-solid">Read the wildlife report (PDF)</a>
+              <Link href="/what-we-do" className="btn btn-ghost">How we work</Link>
+            </div>
           </div>
           <div className="grid grid-cols-2 gap-4 lg:col-span-2">
             <Photo photo={photos.lion} className="col-span-2 aspect-[16/9] overflow-hidden" sizes="(min-width:1024px) 60vw, 100vw" />
