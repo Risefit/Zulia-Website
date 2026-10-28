@@ -4,7 +4,8 @@ import { Social } from "./Social";
 import { nav, site } from "@/lib/site";
 
 const partners = [
-  { name: "National Forestry Authority, Uganda", short: "National Forestry Authority", href: "https://www.nfa.go.ug/", logo: "/partners/nfa-light.png" },
+  { name: "National Forestry Authority, Uganda", short: "National Forestry Authority", href: "https://www.nfa.go.ug/", logo: "/partners/nfa-light.png", h: "h-10" },
+  { name: "Uganda Wildlife Authority", short: "Uganda Wildlife Authority", href: "https://ugandawildlife.org/", logo: "/partners/uwa-light.png", h: "h-16" },
 ];
 
 export function Footer() {
@@ -41,11 +42,11 @@ export function Footer() {
       {/* Partners / regulators */}
       <div className="relative border-t border-bone/10">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-10 gap-y-6 px-5 py-8 sm:px-8">
-          <p className="text-xs uppercase tracking-[0.18em] text-bone/50">Licensed by</p>
+          <p className="text-xs uppercase tracking-[0.18em] text-bone/50">Licensed and regulated by</p>
           {partners.map((p) => (
             <a key={p.name} href={p.href} target="_blank" rel="noreferrer" title={p.name} aria-label={p.name}
               className="group inline-flex items-center gap-3 opacity-80 transition hover:opacity-100">
-              <img src={p.logo} alt="" className="h-10 w-auto" />
+              <img src={p.logo} alt="" className={`${p.h} w-auto`} />
               <span className="text-sm text-bone/70 group-hover:text-bone">{p.short}</span>
             </a>
           ))}
