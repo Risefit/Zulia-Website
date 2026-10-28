@@ -4,7 +4,7 @@ export const site = {
   tagline: "A 50-year commitment to Uganda's last great frontier.",
   domain: "zuliaconservancy.org",
   url: "https://zuliaconservancy.org",
-  email: "amauganda@gmail.com",
+  email: "chris@zuliaconservancy.org",
   phone: "+256 788 389467",
   phoneHref: "tel:+256788389467",
   address: "Kaabong District, Karamoja, Uganda",
