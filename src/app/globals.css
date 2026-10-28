@@ -1,0 +1,108 @@
+@import "tailwindcss";
+@import "@fontsource/bodoni-moda/400.css";
+@import "@fontsource/bodoni-moda/400-italic.css";
+@import "@fontsource/bodoni-moda/500.css";
+@import "@fontsource/albert-sans/400.css";
+@import "@fontsource/albert-sans/500.css";
+@import "@fontsource/albert-sans/600.css";
+
+@theme {
+  /* Palette drawn from the Zulia photographs */
+  --color-granite: #2a2824;     /* warm charcoal of the kopje rock */
+  --color-kopje: #8a6a4b;       /* weathered granite brown */
+  --color-olive: #8f8a57;       /* Kidepo grass after rain */
+  --color-palm: #35503a;        /* borassus and riverine green */
+  --color-sand: #e9e1d2;        /* Kidepo riverbed */
+  --color-bone: #f4efe6;        /* page ground */
+  --color-ink: #1c1b18;
+  --color-dawn: #ef8a3c;        /* first light over the Turkana escarpment */
+  --color-ember: #c75f27;       /* the same light, deeper */
+
+  --font-display: "Bodoni Moda", "Didot", Georgia, serif;
+  --font-sans: "Albert Sans", system-ui, sans-serif;
+
+  --tracking-display: -0.015em;
+}
+
+:root {
+  color-scheme: light;
+  --measure: 62ch;
+}
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+body {
+  background: var(--color-bone);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.02;
+}
+
+.prose-measure { max-width: var(--measure); }
+.prose-measure p + p { margin-top: 1em; }
+
+/* Topographic contour ground. Colour comes from currentColor; opacity from the caller. */
+.contours {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: url("/contours.svg");
+  background-size: 1400px auto;
+  background-repeat: repeat;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.35) 60%, transparent);
+}
+
+a { text-underline-offset: 0.18em; }
+:focus-visible { outline: 2px solid var(--color-palm); outline-offset: 3px; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .85rem 1.4rem; border-radius: 999px;
+  font-weight: 500; font-size: .95rem; line-height: 1;
+  transition: background-color .2s, color .2s, border-color .2s;
+}
+.btn-solid { background: var(--color-palm); color: var(--color-bone); }
+.btn-solid:hover { background: #2a4030; }
+.on-dark .btn-solid { background: var(--color-dawn); color: var(--color-ink); }
+.on-dark .btn-solid:hover { background: #f59a52; }
+.btn-dawn { background: var(--color-dawn); color: var(--color-ink); }
+.btn-dawn:hover { background: #f59a52; }
+.btn-ghost { border: 1px solid currentColor; }
+.btn-ghost:hover { background: rgba(0,0,0,.06); }
+.on-dark .btn-ghost:hover { background: rgba(255,255,255,.1); }
+
+.field {
+  width: 100%; padding: .8rem 1rem; border-radius: .5rem;
+  border: 1px solid rgba(28,27,24,.25); background: #fff;
+}
+.field:focus { border-color: var(--color-palm); outline: none; box-shadow: 0 0 0 3px rgba(53,80,58,.15); }
+
+.caption { font-size: .78rem; color: rgba(28,27,24,.6); }
+.on-dark .caption { color: rgba(244,239,230,.6); }
+
+/* map */
+.map-label { font-family: var(--font-sans); font-size: 11px; letter-spacing: .02em; fill: currentColor; }
+.map-label.serif { font-family: var(--font-display); font-size: 15px; letter-spacing: 0; }
+
+/* soften the square edge of the map panel */
+.map-vignette { -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 74%); mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 74%); }
+
+/* dawn glow for dark panels: light coming up behind the hills */
+.dawn-glow::after {
+  content: ""; position: absolute; inset: auto -10% -30% -10%; height: 70%; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 100%, rgba(239,138,60,.35), rgba(239,138,60,.08) 40%, transparent 70%);
+}
+em.dawn { color: var(--color-dawn); font-style: italic; }
+@keyframes trail { to { stroke-dashoffset: 0; } }
+@keyframes pulse { 0%,100% { transform: scale(1); opacity: .9 } 50% { transform: scale(1.6); opacity: .2 } }
+body:has([data-record]) header, body:has([data-record]) footer { display: none; }
