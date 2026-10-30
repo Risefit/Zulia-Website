@@ -4,16 +4,19 @@ import { photos } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Opportunities" };
 
-const tracks: { id: string; title: string; photo: typeof photos.pool; lede: string; body: string[]; fit: string; href?: string; report?: { label: string; href: string } }[] = [
+const tracks: { id: string; title: string; photo: typeof photos.pool; lede: string; body: string[]; fit: string; href?: string; report?: { label: string; href: string } | { label: string; href: string }[] }[] = [
   {
     id: "lodges",
     title: "Lodge and camp operators",
-    report: { label: "Lodge sites: thirty places to wake up (PDF)", href: "/reports/Zulia_Lodge_Sites.pdf" },
+    report: [
+      { label: "Lodge operator prospectus (PDF)", href: "/reports/Zulia_Lodge_Operator_Prospectus.pdf" },
+      { label: "Lodge sites: thirty places to wake up (PDF)", href: "/reports/Zulia_Lodge_Sites.pdf" },
+    ],
     photo: photos.sunset,
     lede: "Two sites, long leases, a landscape no one else can offer.",
     body: [
       "The licence provides for an exclusive 20-bed wilderness lodge and a 40-bed mid-range camp. We are not building them ourselves. We are looking for operators who will design, build and run them under long-term site leases with a conservation fee attached to every bed-night.",
-      "Sites will be identified with the National Forestry Authority after survey. Candidates include the Kidepo River frontage with its palms and rock pools, and hilltop positions in the foothills below Mount Zulia with 360-degree views over the whole Kidepo system (see the layered map on the concession page).",
+      "From a survey of thirty sites we have chosen two: the Summit Eyrie, a hundred metres below the top of Mount Zulia inside the no-hunting sanctuary, for the small exclusive camp; and the River Bluff, a granite shoulder 190 m above the Himan River and two kilometres from the road, for the larger lodge. A community-run rest camp at Himan completes the plan. All three remain subject to National Forestry Authority approval and environmental assessment.",
       "Access is better than the map suggests: the Apoka airstrip is 1 h 45 by air from Entebbe and 23 km from the boundary, and Kidepo International Airport, now under construction, will be 21 km away.",
     ],
     fit: "Operators already in East Africa with a record in remote, low-density camps; a design that touches the ground lightly; and an interest in being first into a new landscape rather than tenth into an old one.",
@@ -40,6 +43,7 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
       "We work alongside, not instead of, the institutions already in the landscape: the Uganda Wildlife Authority and the National Forestry Authority as our regulators and co-managers, and the organisations supporting the Kidepo Valley conservation landscape. Zulia is the piece of that landscape with no one yet funding it.",
     ],
     fit: "Funders of landscape-scale protection, species recovery, community conservancies and aerial monitoring who want a defined, boundaried site with a long licence behind it.",
+    report: { label: "Case for support (PDF)", href: "/reports/Zulia_Case_for_Support.pdf" },
   },
   {
     id: "ranching",
@@ -51,7 +55,7 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
       "Partners with experience of integrating livestock and wildlife on rangeland in East Africa, or of community livestock-to-market programmes, can shape this from the beginning.",
     ],
     fit: "Rangeland managers, livestock enterprises and conservancies with a working model of wildlife and cattle sharing ground.",
-    report: { label: "Wildlife ranches: breeding partners prospectus (PDF)", href: "/reports/Zulia_Breeding_Partners_Prospectus.pdf" },
+    report: { label: "Livestock and rangeland prospectus (PDF)", href: "/reports/Zulia_Livestock_Partners_Prospectus.pdf" },
   },
   {
     id: "breeding",
@@ -75,6 +79,7 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
     ],
     fit: "Specialist operators with a safety record in remote, guided, self-propelled travel, who would rather share a camp than own a lodge.",
     href: "/opportunities/adventure",
+    report: { label: "Adventure operator prospectus (PDF)", href: "/reports/Zulia_Adventure_Operator_Prospectus.pdf" },
   },
   {
     id: "birding",
@@ -87,6 +92,7 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
     ],
     fit: "Specialist birding companies and guides with East African experience who want a frontier site, and who will share their records with the Trust's monitoring programme.",
     href: "/contact?topic=birding",
+    report: { label: "Birding operator prospectus (PDF)", href: "/reports/Zulia_Birding_Operator_Prospectus.pdf" },
   },
   {
     id: "botanical",
@@ -99,6 +105,7 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
     ],
     fit: "Botanic gardens, herbaria and plant-conservation bodies in Africa and beyond; universities with dryland ecology programmes; funders of seed banking and ethnobotany.",
     href: "/contact?topic=botanical",
+    report: { label: "Botanical partners prospectus (PDF)", href: "/reports/Zulia_Botanical_Partners_Prospectus.pdf" },
   },
   {
     id: "research",
@@ -109,6 +116,7 @@ const tracks: { id: string; title: string; photo: typeof photos.pool; lede: stri
       "The licence provides for research access on agreed terms. We welcome botanists, ecologists, archaeologists and film crews, and we have a particular interest in partners for the aerial work: wildlife census, boundary mapping, fire detection and patrol, where a light aircraft or drone does in a morning what a vehicle cannot do in a month.",
     ],
     fit: "Universities and institutes, natural-history producers, and operators of survey aircraft and UAVs.",
+    report: { label: "Research, film and aviation terms (PDF)", href: "/reports/Zulia_Research_Film_Aviation_Prospectus.pdf" },
   },
 ];
 
@@ -148,7 +156,7 @@ export default function Opportunities() {
                 <Cta href={`/contact?topic=${t.id}`}>Start a conversation</Cta>
                 {"href" in t && t.href && t.href.startsWith("/opportunities") && <Cta href={t.href} ghost>See the trail concept</Cta>}
                 {t.report ? (
-                  <a href={t.report.href} className="btn btn-ghost">{t.report.label}</a>
+                  [t.report].flat().map((r) => <a key={r.href} href={r.href} className="btn btn-ghost">{r.label}</a>)
                 ) : (
                   <span className="btn btn-ghost cursor-default opacity-50" aria-disabled title="In preparation">Report: in preparation</span>
                 )}
